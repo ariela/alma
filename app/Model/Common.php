@@ -16,6 +16,7 @@ class Common extends \Alma\Model
         $this->sys_name = 'Alma';
         $this->sys_url = 'http://alma.transrain.net/';
         $this->sys_version = '0.0.1';
+        $this->assets_style = 'assets/styles';
     }
 
 }

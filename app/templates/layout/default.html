@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{% block title %}ページタイトル{% endblock %}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>{% block title %}ページタイトル{% endblock %}</title>
+    <link rel="stylesheet" href="{{ assets_style }}/default.css" type="text/css">
+    <link rel="stylesheet" href="{{ assets_style }}/theme.css" type="text/css">
 {% block header %}
 {% endblock %}
 </head>
