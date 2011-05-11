@@ -1,10 +1,27 @@
 <?php
+/**
+ * Alma Framework ブートクラス定義ファイル
+ * 
+ * @category  Framework
+ * @package   Alma
+ * @copyright Copyright (c) 2011 Takeshi Kawamoto <yuki@transrain.net>
+ * @license   http://www.apache.org/licenses/LICENSE-2.0.txt Apache License Version 2.0
+ * @version   1.0.0
+ * @link      https://github.com/ariela/alma
+ */
 namespace Alma;
 
 require_once ALMA_DIR_VENDOR . '/Alma/Php/UtilityObject.php';
 require_once ALMA_DIR_VENDOR . '/Alma/Utils/ClassUtil.php';
 /**
  * アプリケーションを実行するブートクラス
+ * 
+ * @category  Framework
+ * @package   Alma
+ * @copyright Copyright (c) 2011 Takeshi Kawamoto <yuki@transrain.net>
+ * @license   http://www.apache.org/licenses/LICENSE-2.0.txt Apache License Version 2.0
+ * @version   1.0.0
+ * @link      https://github.com/ariela/alma
  */
 final class Bootstrap extends Php\UtilityObject
 {
@@ -60,6 +77,12 @@ final class Bootstrap extends Php\UtilityObject
         }
     }
 
+    /**
+     * アプリケーション内で発生した例外を出力用に解析する
+     * @param \Exception $e     アプリケーション内で発生した例外
+     * @param integer    $level 再帰レベル（デフォルト0)
+     * @return string 例外情報文字列
+     */
     private static function parseException(\Exception $e, $level=0)
     {
         $extend = '';

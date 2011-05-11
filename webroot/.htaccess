@@ -15,7 +15,7 @@
     RewriteEngine On
 
     # アプリケーションの保護
-    RewriteRule ^(?:config|system|application)\b.* index.php/$0 [L]
+    RewriteRule ^(?:app|vendor)\b.* index.php/$0 [L]
 
     # GZIP対応
     RewriteCond %{HTTP:Accept-Encoding} gzip
