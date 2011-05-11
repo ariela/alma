@@ -1,6 +1,8 @@
 <?php
 namespace Model;
 
+use \Alma\Lists\Helper as HelperList;
+
 /**
  * 共通のモデル情報
  */
@@ -18,7 +20,7 @@ class Common extends \Alma\Model
     public function __construct()
     {
         // ヘルパーのロード
-        $this->loadHelper('database/pdo', 'db');
+        $this->loadHelper(HelperList::DB_PDO, 'db');
         // PDOヘルパーを接続
         $dsn = $this->db->createDsn(array(
                     'driver' => 'mysql',

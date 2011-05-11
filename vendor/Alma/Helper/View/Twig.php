@@ -1,5 +1,5 @@
 <?php
-namespace Alma\View;
+namespace Alma\Helper\View;
 
 /**
  * Twigで出力処理を行うビュークラス
@@ -24,7 +24,7 @@ class Twig implements IView
         // テンプレートディレクトリの指定
         $loader = new \Twig_Loader_Filesystem(array(
                     realpath(ALMA_DIR_TEMPLATES),
-                    realpath(ALMA_DIR_VENDOR . '/Alma/templates'),
+                    realpath(ALMA_DIR_SYSTEM . '/templates'),
                 ));
 
         // テンプレートエンジンの作成
@@ -54,7 +54,7 @@ class Twig implements IView
         }
 
         if (!file_exists(ALMA_DIR_TEMPLATES . '/' . $template)
-                && !file_exists(dirname(__DIR__) . '/templates/' . $template)) {
+                && !file_exists(ALMA_DIR_SYSTEM . '/templates/' . $template)) {
             throw new \Alma\Exception("テンプレートファイル「{$template}」が見つかりません。");
         }
 

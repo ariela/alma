@@ -1,12 +1,21 @@
 <?php
 namespace Controller;
 
+use Alma\Lists\Helper as HelperList;
+
 class Pages extends \Alma\Controller
 {
-
+    /**
+     * ビューオブジェクトを保持する
+     * @var \Alma\Helper\View\IView
+     */
+    protected $view;
+    
     public function __construct()
     {
         parent::__construct();
+       
+        $this->loadHelper(HelperList::VIEW_TWIG, 'view');
     }
 
     public function home()

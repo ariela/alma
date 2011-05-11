@@ -1,5 +1,5 @@
 <?php
-namespace Alma\View;
+namespace Alma\Helper\View;
 
 /**
  * Viewとして必要なメソッドを宣言するインターフェース

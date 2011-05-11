@@ -33,6 +33,7 @@ final class Bootstrap extends Php\UtilityObject
     {
         // 未定義定数の初期化
         defined('ALMA_DEBUG')? : define('ALMA_DEBUG', true);
+        defined('ALMA_DIR_SYSTEM')? : define('ALMA_DIR_SYSTEM', __DIR__);
         defined('ALMA_DIR_CACHE')? : define('ALMA_DIR_CACHE', ALMA_DIR_APP . '/caches');
         defined('ALMA_DIR_TEMPLATES')? : define('ALMA_DIR_TEMPLATES', ALMA_DIR_APP . '/templates');
         defined('ALMA_DIR_CONFIG')? : define('ALMA_DIR_CONFIG', ALMA_DIR_APP . '/config');
@@ -54,7 +55,7 @@ final class Bootstrap extends Php\UtilityObject
             $router->dispatch();
         } catch (Exception $e) {
             header('HTTP/1.0 404 Not Found');
-            $view = new View\Twig();
+            $view = new Helper\View\Twig();
             $data = array(
                 'error_title' => null,
                 'error_body' => null,

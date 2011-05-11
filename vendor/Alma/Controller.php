@@ -6,22 +6,13 @@ namespace Alma;
  */
 class Controller
 {
-    /**
-     * ビューオブジェクトを保持する
-     * @var \Alma\View\IView
-     */
-    protected $view;
+
 
     /**
      * コントローラの初期化を行う
      */
     public function __construct()
     {
-        include ALMA_DIR_CONFIG . '/system.php';
-
-        // viewの構築
-        $view = '\\Alma\\View\\' . ucfirst($system['view_type']);
-        $this->view = new $view;
     }
 
     /**
