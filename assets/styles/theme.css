@@ -1,0 +1,124 @@
+/*
+10	 77
+11	 85
+12	 93
+13	 100
+14	 108
+15	 116
+16	 123.1
+17	 131
+18	 138.5
+19	 146.5
+20	 153.9
+21	 161.6
+22	 167
+23	 174
+24	 182
+25	 189
+26	 197
+*/
+
+/**
+ * 共通設定
+ */
+body {
+    margin-top: 1.0em;
+    color: #000;
+    background-color: #fff;
+    font-family: Helvetica, Arial, FreeSans, san-serif;
+}
+a { color: #000; }
+pre { background: #000; color: #fff; padding: 1em;}
+
+/**
+ * レイアウト設定
+ */
+header.site,
+div.site,
+footer.site {
+    margin: 0 auto;
+    width: 960px;
+}
+
+/**
+ * リボン設定
+ */
+p#ribbons {
+}
+p#ribbons img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: 0;
+}
+
+/**
+ * ヘッダ領域
+ */
+header.site {
+    margin-bottom: 2em;
+}
+header.site h1 {
+    font-weight: bold;
+    font-size: 197%;
+    text-shadow: 1px 1px #ccc;
+    -moz-text-shadow: 1px 1px #ccc;
+    -webkit-text-shadow: 1px 1px #ccc;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: .2em;
+}
+header.site h1 a { text-decoration: none }
+header.site p.description {
+    font-size: 93%;
+    font-style: italic;
+}
+
+/**
+ * フッタ領域
+ */
+
+footer.site {
+    margin: 1em 0;
+}
+
+footer.site p.copyright,
+footer.site p.hosted {
+    font-size: 85%;
+    text-align: center;
+    text-shadow: 1px 1px #ccc;
+    -moz-text-shadow: 1px 1px #ccc;
+    -webkit-text-shadow: 1px 1px #ccc;
+}
+
+/**
+ * コンテンツ領域
+ */
+div.site {}
+div.site article { margin-bottom: 2em;}
+
+div.site article header h1 {
+    font-size: 153.9%;
+    font-weight: bold;
+    text-shadow: 1px 1px #ccc;
+    -moz-text-shadow: 1px 1px #ccc;
+    -webkit-text-shadow: 1px 1px #ccc;
+}
+
+div.site article section {
+    margin: 1em 0 0 1em;
+}
+
+div.site article section header h2 {
+    font-size: 123.1%;
+    font-weight: bold;
+}
+
+div.site article section div.sectionbody {
+    margin: .5em 0 .5em 1em;
+}
+
+div.site article section div.sectionbody h3 {
+    font-size: 108%;
+    font-weight: bold;
+    margin-top: .8em;
+}
