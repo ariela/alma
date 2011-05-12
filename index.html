@@ -1,8 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja"
+      xmlns:og="http://opengraphprotocol.org/schema/"
+      xmlns:mixi="http://mixi-platform.com/ns#"
+      xmlns:fb="http://www.facebook.com/2008/fbml"
+>
 <head>
     <meta charset='utf-8'>
     <title>Alma Framework - PHP 5.3専用フレームワーク</title>
+
+    <!--OGP-START-->
+    <meta property="og:site_name" content="ariela on GitHub">
+    <meta property="og:title" content="Alma Framework - PHP 5.3専用フレームワーク">
+    <meta property="og:description" content="カスなPHP 5.3専用フレームワーク。業務で使うのは頭がおかしい。それに構造変わっても知らんよ。基本的に他力本願フレームワーク。">
+    <meta property="og:type" content="article"/>
+    <meta property="og:url" content="http://ariela.github.com/alma/"/>
+    <!--<meta property="og:image" content="http://ia.media-imdb.com/rock.jpg"/>-->
+    <!--<meta property="fb:admins" content="USER_ID"/>-->
+    <!--OGP-END-->
+
     <link rel="stylesheet" type="text/css" href="http://ariela.github.com/assets/styles/default.css">
     <link rel="stylesheet" type="text/css" href="http://ariela.github.com/assets/styles/theme.css">
 
@@ -11,11 +26,9 @@
         head.js(
             'https://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.js',
             'http://ariela.github.com/assets/scripts/jquery.socialbutton.js',
+            'http://ariela.github.com/assets/scripts/site.js',
             function() {
-                $('#smixi').socialbutton('mixi_like',{key:'5cb072852105e88e1006ffb0fb8a2c5a40c4d805',show_faces: false});
-                $('#sfacebook').socialbutton('facebook_like',{button:'button_count'});
-                $('#stwitter').socialbutton('twitter',{button: 'horizontal',via:'ariela'});
-                $('#shatena').socialbutton('hatena');
+                setSocialButtons();
             }
         );
     </script>
