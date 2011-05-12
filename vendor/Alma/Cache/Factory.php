@@ -14,33 +14,46 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace Alma\Lists;
+namespace Alma\Cache;
 
 /**
- * ヘルパーの読み込み名称のリストを提供する定数クラス
+ * システムによって自動的にキャッシュクラスを生成するFactoryクラス
  * 
  * @author    Takeshi Kawamoto <yuki@transrain.net>
- * @category  Lists
- * @package   Alma/Lists
- * @copyright Copyright (c) 2011 Takeshi Kawamoto <yuki@transrain.net>
+ * @category  Cache
+ * @package   Alma/Cache
+ * @copyright Copyright (c) 2011 Takeshi Kawamoto
  * @license   http://www.apache.org/licenses/LICENSE-2.0.txt Apache License Version 2.0
  * @version   1.0.0
  * @link      https://github.com/ariela/alma
  */
-class Helper
+final class Factory
 {
-    /**
-     * PDO データベースヘルパー名
-     */
-    const DB_PDO = 'database/pdo';
+    private static $s_instance;
 
     /**
-     * Doctrine データベースヘルパー名
+     * 新しいキャッシュクラスを取得する
+     * @return \Alma\Cache\ICache
      */
-    const DB_DOCTRINE = 'database/doctrine';
+    public static function getNewInstance()
+    {
+        $result = null;
+        if (function_exists('apc_add')) {
+            return new Apc();
+        } else {
+            return new File();
+        }
+    }
 
     /**
-     * Twig ビューヘルパー名
+     * 唯一のキャッシュクラスを取得する。
+     * @return \Alma\Cache\ICache
      */
-    const VIEW_TWIG = 'view/twig';
+    public static function getSingleton()
+    {
+        if (self::$s_instance === null) {
+            self::$s_instance = self::getNewInstance();
+        }
+        return self::$s_instance;
+    }
 }

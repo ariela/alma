@@ -10,11 +10,11 @@ class Pages extends \Alma\Controller
      * @var \Alma\Helper\View\IView
      */
     protected $view;
-    
+
     public function __construct()
     {
         parent::__construct();
-       
+
         $this->loadHelper(HelperList::VIEW_TWIG, 'view');
     }
 
@@ -22,14 +22,13 @@ class Pages extends \Alma\Controller
     {
         $data = $this->getModel('pages/home');
 
-
         /*
           $img = \Alma\Image\Base64::convert(realpath('./autotest1.jpg'), ALMA_DIR_CACHE);
           echo "<img src=\"{$img}\">";
           $img = \Alma\Image\Base64::convert(realpath('./te.PNG'), ALMA_DIR_CACHE);
           echo "<img src=\"{$img}\">";
          */
-
+var_dump($data);
         $this->view->display('pages/home', $data);
     }
 }

@@ -14,41 +14,53 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace Alma;
+namespace Alma\Helper\Database;
 
 /**
- * 環境情報を管理するクラス
+ * データベースヘルパーの抽象クラス
  * 
  * @author    Takeshi Kawamoto <yuki@transrain.net>
- * @category  Framework
- * @package   Alma
+ * @category  Helper
+ * @package   Alma/Helper/Database
  * @copyright Copyright (c) 2011 Takeshi Kawamoto <yuki@transrain.net>
  * @license   http://www.apache.org/licenses/LICENSE-2.0.txt Apache License Version 2.0
  * @version   1.0.0
  * @link      https://github.com/ariela/alma
  */
-class Environment extends Php\SingletonObject
+abstract class AbstractDatabase
 {
     /**
-     * 開始時間を保持
-     * @var float 開始時間(マイクロ秒)
+     * データベース設定を保持するフィールド
+     * @var array
      */
-    private $m_start;
+    protected $m_config;
+    /**
+     * 選択されているデータベース設定
+     * @var array 
+     */
+    protected $m_configSelected;
 
     /**
-     * クラスの初期化処理
+     * データベースヘルパーの初期化を行う
      */
-    protected function initialize()
+    public final function __construct()
     {
-        $this->m_start = microtime(true);
+        include ALMA_DIR_CONFIG . '/database.php';
+        $this->m_config = $database;
+        $this->m_configSelected = $database['default'];
     }
 
     /**
-     * 処理時間を取得する
-     * @return float 処理時間(マイクロ秒)
+     * 使用するデータベース設定を選択する
+     * @param string $target データベース設定名
      */
-    public function getProcessTime()
+    public function select($target)
     {
-        return microtime(true) - $this->m_start;
+        $this->m_configSelected = @ $this->m_config[$target] ? : array();
     }
+
+    /**
+     * データベースに接続する
+     */
+    abstract public function connect();
 }

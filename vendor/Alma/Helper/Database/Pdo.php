@@ -1,32 +1,33 @@
 <?php
 /**
- * Short Description of Pdo file.
+ * Copyright 2011 Takeshi Kawamoto
  * 
- * Long Description of Pdo file.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  * 
- * @category  <category>
- * @package   <package>
- * @copyright Copyright (c) t-kawamoto
- * @license   <license>
- * @version   <version>
- * @link      <link>
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 namespace Alma\Helper\Database;
 
 /**
- * Short Description of Pdo class.
+ * PDOデータベースヘルパークラス
  * 
- * Long Description of Pdo class.
- * 
- * @author t-kawamoto
- * @category  <category>
- * @package   <package>
- * @copyright Copyright (c) t-kawamoto
- * @license   <license>
- * @version   <version>
- * @link      <link>
+ * @author    Takeshi Kawamoto <yuki@transrain.net>
+ * @category  Helper
+ * @package   Alma/Helper/Database
+ * @copyright Copyright (c) 2011 Takeshi Kawamoto <yuki@transrain.net>
+ * @license   http://www.apache.org/licenses/LICENSE-2.0.txt Apache License Version 2.0
+ * @version   1.0.0
+ * @link      https://github.com/ariela/alma
  */
-class Pdo
+class Pdo extends AbstractDatabase
 {
     /**
      * データベースハンドラを保持する
@@ -39,15 +40,43 @@ class Pdo
      */
     protected $m_statement;
 
-    public function createDsn(array $options)
+    public function connect()
     {
+        $options = $this->m_configSelected;
+        $dsn = '';
+
         // ドライバは必須
         if (!isset($options['driver'])) {
-            return false;
+            throw new Alma\Exception('データベースドライバが設定されていません。');
+        }
+
+        // ユーザ取得
+        $user = null;
+        if (isset($options['user'])) {
+            $user = $options['user'];
+            unset($options['user']);
+        }
+
+        // パスワード取得
+        $pass = null;
+        if (isset($options['password'])) {
+            $pass = $options['password'];
+            unset($options['password']);
+        }
+
+        // ドライバーオプション取得
+        $driveropt = array();
+        if (isset($options['driverOptions'])) {
+            $driveropt = $options['driverOptions'];
+            unset($options['driverOptions']);
         }
 
         // DSNの構築
-        $dsn = $options['driver'] . ':';
+        if (0 === strncmp('pdo_', $options['driver'], 4)) {
+            $dsn = substr($options['driver'], 4) . ':';
+        } else {
+            $dsn = $options['driver'] . ':';
+        }
         unset($options['driver']);
 
         $first = true;
@@ -57,12 +86,7 @@ class Pdo
             $first = false;
         }
 
-        return $dsn;
-    }
-
-    public function connect($dsn, $username, $passwd, array $options)
-    {
-        $this->m_dbh = new \PDO($dsn, $username, $passwd, $options);
+        $this->m_dbh = new \PDO($dsn, $user, $pass);
     }
 
     public function getRawHandler()
@@ -97,7 +121,7 @@ class Pdo
         $this->m_statement->execute($data);
         return $this->m_statement;
     }
-    
+
     public function clear()
     {
         $this->m_statement = null;

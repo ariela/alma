@@ -33,7 +33,7 @@ define('ALMA_DIR_APP', dirname(__DIR__) . '/app');
 //define('ALMA_DIR_CONFIG', ALMA_DIR_APP . '/config');
 
 ini_set('display_errors', '1');
-error_reporting(-1);
+error_reporting(E_ALL);
 
 require_once ALMA_DIR_VENDOR . '/Alma/Bootstrap.php';
 \Alma\Bootstrap::execute();

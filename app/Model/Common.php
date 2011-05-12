@@ -10,7 +10,7 @@ class Common extends \Alma\Model
 {
     /**
      * DBヘルパーを設定する
-     * @var \Alma\Helper\Database\Pdo
+     * @var \Alma\Helper\Database\Doctrine
      */
     protected $db;
 
@@ -20,15 +20,10 @@ class Common extends \Alma\Model
     public function __construct()
     {
         // ヘルパーのロード
-        $this->loadHelper(HelperList::DB_PDO, 'db');
+        $this->loadHelper(HelperList::DB_DOCTRINE, 'db');
+
         // PDOヘルパーを接続
-        $dsn = $this->db->createDsn(array(
-                    'driver' => 'mysql',
-                    'host' => 'localhost',
-                    'dbname' => 'cview',
-                    'charset' => 'utf8',
-                ));
-        $this->db->connect($dsn, 'cview', 'cview', array(\PDO::ATTR_EMULATE_PREPARES => false));
+        $this->db->connect();
 
         // システム情報追加
         $this->sys_name = 'Alma';
@@ -37,12 +32,13 @@ class Common extends \Alma\Model
         $this->assets_style = 'assets/styles';
 
         // システム設定取得
-        $query = 'SELECT * FROM cv_configs';
-        $stmt = $this->db->execute($query);
-        $rows = $stmt->fetchAll(\PDO::FETCH_CLASS);
-        foreach ($rows as $row) {
-            $field = $row->ckey;
-            $this->$field = $row->cvalue;
+        $em = $this->db->getEntityManager();
+        $q = $em->createQuery('SELECT u FROM Entities\Config u');
+        $conf = $q->getResult();
+        foreach ($conf as $row) {
+            $field = $row->getName();
+            $this->$field = $row->getValue();
         }
+        $em->flush();
     }
 }

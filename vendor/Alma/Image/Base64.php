@@ -1,30 +1,31 @@
 <?php
 /**
- * Short Description of Base64 file.
+ * Copyright 2011 Takeshi Kawamoto
  * 
- * Long Description of Base64 file.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  * 
- * @category  <category>
- * @package   <package>
- * @copyright Copyright (c) t-kawamoto
- * @license   <license>
- * @version   <version>
- * @link      <link>
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 namespace Alma\Image;
 
 /**
- * Short Description of Base64 class.
+ * 画像データをBase64に変換するためのクラス
  * 
- * Long Description of Base64 class.
- * 
- * @author t-kawamoto
- * @category  <category>
- * @package   <package>
- * @copyright Copyright (c) t-kawamoto
- * @license   <license>
- * @version   <version>
- * @link      <link>
+ * @author    Takeshi Kawamoto <yuki@transrain.net>
+ * @category  Image
+ * @package   Alma/Image
+ * @copyright Copyright (c) 2011 Takeshi Kawamoto
+ * @license   http://www.apache.org/licenses/LICENSE-2.0.txt Apache License Version 2.0
+ * @version   1.0.0
+ * @link      https://github.com/ariela/alma
  */
 class Base64
 {
@@ -51,34 +52,22 @@ class Base64
         if (!$imginfo) return false;
         $mime = $imginfo['mime'];
 
-        // キャッシュファイルの検索
-        $cachefind = false;
-        $cachefile = null;
-        if ($cachedir) {
-            $cachefile = sha1($imagepath);
-            $cachefile = sprintf('%s/img/%s/%s/%s'
-                    , $cachedir
-                    , substr($cachefile, 0, 2)
-                    , substr($cachefile, 2, 2)
-                    , substr($cachefile, 4));
+        // ファイルキャッシュクラス取得
+        $cache = new \Alma\Cache\File();
+        $cache->setCacheDirectory($cachedir);
 
-            if (file_exists($cachefile) && filemtime($imagepath) < filemtime($cachefile)) {
-                $cachefind = true;
-            }
-        }
-
-        if ($cachefind) {
-            // キャッシュを読み込み
-            $result = file_get_contents($cachefile);
+        // キャッシュのチェック
+        $cachekey = sha1($imagepath);
+        $cachetim = filemtime($imagepath);
+        if ($cache->contains($cachekey, $cachetim)) {
+            // キャッシュが存在する場合はキャッシュを利用
+            $result = $cache->load($cachekey);
         } else {
-            // 画像データをBASE64化
+            // キャッシュが存在しない場合は構築
             $bin = fread(fopen($imagepath, 'r'), filesize($imagepath));
             $base64 = base64_encode($bin);
             $result = sprintf('data:%s;base64,%s', $mime, $base64);
-            if (!empty($cachedir) && !empty($cachefile)) {
-                mkdir(dirname($cachefile), 777, true);
-                file_put_contents($cachefile, $result);
-            }
+            $cache->save($cachekey, $result, 31536000); // 1年間保存
         }
 
         // 画像データ文字列を返却する
