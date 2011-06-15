@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>{% block title %}ページタイトル{% endblock %}</title>
+    <link rel="stylesheet" href="{{ assets_style }}/default.css" type="text/css">
+    <link rel="stylesheet" href="{{ assets_style }}/theme.css" type="text/css">
+{% block header %}
+{% endblock %}
+</head>
+<body class="default">
+    <div class="container">
+        <header class="site">
+            {% block site_header %}
+            <h1><a href="{{ url_home }}">{{ page_title }}</a></h1>
+            <nav class="global"></nav>
+            {% endblock %}
+        </header>
+
+        <div class="site">
+
+            <div class="contents">{% block contents %}
+                
+                コンテンツ部分
+            {% endblock %}</div>
+
+            <aside class="sidebar">{% block sidebar %}
+                
+                サイドバー部分
+            {% endblock %}</aside>
+        </div>
+
+        <footer class="site">
+            <p class="copyright">Copyright &copy; {{ site_author }}.</p>
+            <p class="powered">Powered by <a href="{{ sys_url }}">{{ sys_name }}</a> {{ sys_version }}.
+            process time {{ execution_time }} sec.</p>
+        </footer>
+    </div>
+</body>
+</html>
