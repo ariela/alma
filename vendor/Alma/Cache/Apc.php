@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace Alma\Cache;
+namespace alma\cache;
 
 /**
  * APCにキャッシュを行うクラス

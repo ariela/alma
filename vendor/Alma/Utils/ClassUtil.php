@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace Alma\Utils;
+namespace alma\utils;
 
 /**
  * クラスに関するユーティリティクラス
@@ -27,7 +27,7 @@ namespace Alma\Utils;
  * @version   1.0.0
  * @link      https://github.com/ariela/alma
  */
-final class ClassUtil extends \Alma\Php\UtilityObject
+final class ClassUtil extends \alma\php\UtilityObject
 {
 
     /**

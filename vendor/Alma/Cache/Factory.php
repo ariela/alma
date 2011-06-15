@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace Alma\Cache;
+namespace alma\cache;
 
 /**
  * システムによって自動的にキャッシュクラスを生成するFactoryクラス
@@ -33,7 +33,7 @@ final class Factory
 
     /**
      * 新しいキャッシュクラスを取得する
-     * @return \Alma\Cache\ICache
+     * @return \alma\cache\ICache
      */
     public static function getNewInstance()
     {
@@ -47,7 +47,7 @@ final class Factory
 
     /**
      * 唯一のキャッシュクラスを取得する。
-     * @return \Alma\Cache\ICache
+     * @return \alma\cache\ICache
      */
     public static function getSingleton()
     {

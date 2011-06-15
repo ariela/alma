@@ -1,39 +1,25 @@
 <?php
-/**
- * ライブラリ設置ディレクトリのパス。
- * @var string
- */
-define('ALMA_DIR_VENDOR', dirname(__DIR__) . '/vendor');
+require_once dirname(__DIR__) . '/vendor/Alma.php';
 
 /**
- * アプリケーション設置ディレクトリのパス。
- * @var string
+ * デバッグモードの設定
+ * @var bool
  */
-define('ALMA_DIR_APP', dirname(__DIR__) . '/app');
+define('ALMA_DEBUG', true);
+
+error_reporting(-1);
 
 /**
- * キャッシュ保存ディレクトリのパス。
- * 未定義時はALMA_DIR_APP/cachesが利用される。
+ * アプリケーションディレクトリの定義
  * @var string
  */
-//define('ALMA_DIR_CACHE', ALMA_DIR_APP . '/caches');
+define('ALMA_DIR_APPLICATION', dirname(__DIR__) . '/app');
 
-/**
- * テンプレートファイル保存ディレクトリのパス。
- * 未定義時はALMA_DIR_APP/templatesが利用される。
- * @var string
- */
-//define('ALMA_DIR_TEMPLATES', ALMA_DIR_APP . '/templates');
+/*
+//Sinatora風に実行する
+Alma::get('/', function() {
+    echo 'ROOT';
+});
+*/
 
-/**
- * 設定ファイル保存ディレクトリのパス。
- * 未定義時はALMA_DIR_APP/configが利用される。
- * @var string
- */
-//define('ALMA_DIR_CONFIG', ALMA_DIR_APP . '/config');
-
-ini_set('display_errors', '1');
-error_reporting(E_ALL);
-
-require_once ALMA_DIR_VENDOR . '/Alma/Bootstrap.php';
-\Alma\Bootstrap::execute();
+Alma::run();

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace Alma;
+namespace alma;
 
 /**
  * モデルの処理を行う基底クラス
@@ -37,7 +37,7 @@ class Model
     public function toArray()
     {
         // 処理時間
-        $env = \Alma\Environment::getInstance();
+        $env = \alma\Environment::getInstance();
         $this->execution_time = sprintf('%.3F', $env->getProcessTime());
         $result = get_object_vars($this);
         return $result;

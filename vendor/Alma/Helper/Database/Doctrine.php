@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace Alma\Helper\Database;
+namespace alma\helper\database;
 
 /**
  * Doctrineデータベースヘルパークラス
@@ -50,10 +50,10 @@ class Doctrine extends AbstractDatabase
         $config->setMetadataCacheImpl($cache);
         $config->setQueryCacheImpl($cache);
 
-        $driverImpl = $config->newDefaultAnnotationDriver(ALMA_DIR_APP . '/Entities');
+        $driverImpl = $config->newDefaultAnnotationDriver(ALMA_DIR_APPLICATION . '/Entities');
         $config->setMetadataDriverImpl($driverImpl);
 
-        $config->setProxyDir(ALMA_DIR_APP . '/Proxies');
+        $config->setProxyDir(ALMA_DIR_APPLICATION . '/Proxies');
         $config->setProxyNamespace('Proxies');
 
         if (ALMA_DEBUG) {

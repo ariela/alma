@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace Alma\Helper\Database;
+namespace alma\helper\database;
 
 /**
  * PDOデータベースヘルパークラス
@@ -47,7 +47,7 @@ class Pdo extends AbstractDatabase
 
         // ドライバは必須
         if (!isset($options['driver'])) {
-            throw new Alma\Exception('データベースドライバが設定されていません。');
+            throw new \alma\Exception('データベースドライバが設定されていません。');
         }
 
         // ユーザ取得

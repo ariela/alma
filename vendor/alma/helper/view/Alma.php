@@ -17,7 +17,7 @@
 namespace alma\helper\view;
 
 /**
- * Viewã¨ã—ã¦å¿…è¦ãªãƒ¡ã‚½ãƒƒãƒ‰ã‚’å®£è¨€ã™ã‚‹ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹
+ * Alma•t‘®‚ÌView‚Åo—Íˆ—‚ğs‚¤ƒrƒ…[ƒNƒ‰ƒX
  * 
  * @author    Takeshi Kawamoto <yuki@transrain.net>
  * @category  Helper
@@ -27,13 +27,32 @@ namespace alma\helper\view;
  * @version   1.0.0
  * @link      https://github.com/ariela/alma
  */
-interface IView
+class Alma implements IView
 {
-
     /**
-     * æŒ‡å®šã—ãŸãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã‚’å‡ºåŠ›ã™ã‚‹
-     * @param string $template ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒ•ã‚¡ã‚¤ãƒ«å
-     * @param mixed  $data     å‡ºåŠ›ãƒ‡ãƒ¼ã‚¿
+     * Twig‚ğ—˜—p‚µ‚Ä‰æ–Êo—Í‚ğs‚¤
+     * @param string $template ƒeƒ“ƒvƒŒ[ƒg–¼
+     * @param mixed  $data     o—Íƒf[ƒ^ 
      */
-    public function display($template, $data = null);
+    public function display($template, $data = null)
+    {
+        $engine = new \alma\View();
+
+        if ($data === null) {
+            $data = array();
+        } elseif (is_object($data) && $data instanceof \alma\Model) {
+            $data = $data->toArray();
+        }
+
+        if ($engine->hasTemplate($template) === false) {
+            throw new \alma\Exception("ƒeƒ“ƒvƒŒ[ƒgƒtƒ@ƒCƒ‹u{$template}v‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñB");
+        }
+
+        // ƒeƒ“ƒvƒŒ[ƒgƒGƒ“ƒWƒ“‚ğÀs
+        try {
+            $engine->render($template, $data);
+        } catch (\Exception $e) {
+            throw new \alma\Exception('Alma View‚Ìˆ—‚ÅƒGƒ‰[‚ª”­¶‚µ‚Ü‚µ‚½B', 'Alma ViewƒGƒ‰[', $e);
+        }
+    }
 }

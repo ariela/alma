@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace Alma\Image;
+namespace alma\image;
 
 /**
  * 画像データをBase64に変換するためのクラス
@@ -53,7 +53,7 @@ class Base64
         $mime = $imginfo['mime'];
 
         // ファイルキャッシュクラス取得
-        $cache = new \Alma\Cache\File();
+        $cache = new \alma\cache\File();
         $cache->setCacheDirectory($cachedir);
 
         // キャッシュのチェック

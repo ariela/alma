@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace Alma;
+namespace alma;
 
 /**
  * 環境情報を管理するクラス
@@ -27,7 +27,7 @@ namespace Alma;
  * @version   1.0.0
  * @link      https://github.com/ariela/alma
  */
-class Environment extends Php\SingletonObject
+class Environment extends php\SingletonObject
 {
     /**
      * 開始時間を保持

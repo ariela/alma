@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace Alma\Helper\Database;
+namespace alma\helper\database;
 
 /**
  * データベースヘルパーの抽象クラス
@@ -45,7 +45,7 @@ abstract class AbstractDatabase
      */
     public final function __construct()
     {
-        include ALMA_DIR_CONFIG . '/database.php';
+        include ALMA_DIR_APPLICATION . '/config/database.php';
         $this->m_config = $database;
         $this->m_configSelected = $database['default'];
     }

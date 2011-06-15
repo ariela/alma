@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace Alma;
+namespace alma;
 
 /**
  * URLルーティングを行うクラス
@@ -75,7 +75,7 @@ class Router
     /**
      * ルート管理クラスの初期化
      */
-    public function __construct()
+    public function __construct(array $events = array())
     {
         // カレントURLの取得
         $this->m_current = '/';
@@ -86,7 +86,11 @@ class Router
         }
 
         // ルート設定の取得
-        include ALMA_DIR_CONFIG . '/route.php';
+        $route = array();
+        if (file_exists(ALMA_DIR_APPLICATION . '/config/route.php')) {
+            include ALMA_DIR_APPLICATION . '/config/route.php';
+        }
+        $route = array_merge($route, $events);
         $this->m_routeinfo = $route;
     }
 
@@ -106,7 +110,7 @@ class Router
             foreach ($cond as $k => $v) {
                 $check = true;
                 list($type, $target) = explode(':', $k);
-                $call = 'checkCondition' . ucFirst($type);
+                $call = 'checkCondition' . ucfirst($type);
                 $finded = $finded || $this->$call($target, $v);
             }
             if ($check && !$finded) continue;
@@ -136,29 +140,35 @@ class Router
         }
 
         // コントローラ実行
-        $current = array_filter(explode('/', $tr));
-        $ctr = array_shift($current);
-        $act = array_shift($current);
+        if (is_array($tr)) {
+            // コールバック
+            $callback = $tr[0];
+            call_user_func($callback);
+        } else {
+            $current = array_filter(explode('/', $tr));
+            $ctr = array_shift($current);
+            $act = array_shift($current);
 
-        // コントローラ名構築
-        $ctr = '\\Controller\\' . ucfirst($ctr);
+            // コントローラ名構築
+            $ctr = '\\Controller\\' . ucfirst($ctr);
 
-        // コントローラクラスがない場合
-        if (!class_exists($ctr, true)) {
-            throw new Exception("指定されたコントローラ「{$ctr}」が見つかりません。");
+            // コントローラクラスがない場合
+            if (!class_exists($ctr, true)) {
+                throw new Exception("指定されたコントローラ「{$ctr}」が見つかりません。");
+            }
+
+            // コントローラオブジェクト構築
+            $ctr = new $ctr();
+
+            // アクションがない場合
+            if (!method_exists($ctr, $act)) {
+                $n = get_class($ctr);
+                throw new Exception("指定されたアクション「{$n}::{$act}」が見つかりません。");
+            }
+
+            // アクションの実行
+            call_user_func_array(array($ctr, $act), $current);
         }
-
-        // コントローラオブジェクト構築
-        $ctr = new $ctr();
-
-        // アクションがない場合
-        if (!method_exists($ctr, $act)) {
-            $n = get_class($ctr);
-            throw new Exception("指定されたアクション「{$n}::{$act}」が見つかりません。");
-        }
-
-        // アクションの実行
-        call_user_func_array(array($ctr, $act), $current);
     }
 
     private function checkConditionHttp($target, $value)

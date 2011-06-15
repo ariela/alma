@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace Alma\Php;
+namespace alma\php;
 
 /**
  * 継承したクラスをシングルトンクラスとして設定する基底クラス

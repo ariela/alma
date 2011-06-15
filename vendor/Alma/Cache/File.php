@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace Alma\Cache;
+namespace alma\cache;
 
 /**
  * ファイルにキャッシュを行うクラス
@@ -40,7 +40,7 @@ class File implements ICache
      */
     public function __construct()
     {
-        $this->m_cachedir = ALMA_DIR_CACHE;
+        $this->m_cachedir = realpath(ALMA_DIR_APPLICATION . '/caches');
     }
 
     /**

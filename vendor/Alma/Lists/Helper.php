@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace Alma\Lists;
+namespace alma\lists;
 
 /**
  * ヘルパーの読み込み名称のリストを提供する定数クラス
@@ -38,6 +38,11 @@ class Helper
      * Doctrine データベースヘルパー名
      */
     const DB_DOCTRINE = 'database/doctrine';
+
+    /**
+     * Alma ビューヘルパー名
+     */
+    const VIEW_ALMA = 'view/alma';
 
     /**
      * Twig ビューヘルパー名

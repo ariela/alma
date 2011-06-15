@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace Alma\Helper\View;
+namespace alma\helper\view;
 
 /**
  * Twigで出力処理を行うビュークラス
@@ -46,13 +46,13 @@ class Twig implements IView
     {
         // テンプレートディレクトリの指定
         $loader = new \Twig_Loader_Filesystem(array(
-                    realpath(ALMA_DIR_TEMPLATES),
+                    realpath(ALMA_DIR_APPLICATION . '/templates'),
                     realpath(ALMA_DIR_SYSTEM . '/templates'),
                 ));
 
         // テンプレートエンジンの作成
         $this->engine = new \Twig_Environment($loader, array(
-                    'cache' => realpath(ALMA_DIR_CACHE),
+                    'cache' => realpath(ALMA_DIR_APPLICATION . '/cache'),
                     'auto_reload' => true,
                 ));
     }
@@ -66,7 +66,7 @@ class Twig implements IView
     {
         if ($data === null) {
             $data = array();
-        } elseif (is_object($data) && $data instanceof \Alma\Model) {
+        } elseif (is_object($data) && $data instanceof \alma\Model) {
             $data = $data->toArray();
         }
 
@@ -76,9 +76,9 @@ class Twig implements IView
             $template .= '.html';
         }
 
-        if (!file_exists(ALMA_DIR_TEMPLATES . '/' . $template)
+        if (!file_exists(ALMA_DIR_APPLICATION . '/templates/' . $template)
                 && !file_exists(ALMA_DIR_SYSTEM . '/templates/' . $template)) {
-            throw new \Alma\Exception("テンプレートファイル「{$template}」が見つかりません。");
+            throw new \alma\Exception("テンプレートファイル「{$template}」が見つかりません。");
         }
 
         // テンプレートエンジンを実行
@@ -86,7 +86,7 @@ class Twig implements IView
             $template = $this->engine->loadTemplate($template);
             echo $template->render($data);
         } catch (\Exception $e) {
-            throw new \Alma\Exception('Twigの処理でエラーが発生しました。', 'Twigエラー', $e);
+            throw new \alma\Exception('Twigの処理でエラーが発生しました。', 'Twigエラー', $e);
         }
     }
 }
